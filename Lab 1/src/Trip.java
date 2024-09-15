@@ -42,7 +42,7 @@ public class Trip {
 
     public void startTrip() {
         this.status = "In Progress";
-        NotificationService.sendNotification("Your trip has started.");
+        NotificationService.sendNotification("Your trip has started from " + pickupLocation + " for " + dropOffLocation);
     }
 
     public void completeTrip(double distance, double time) {

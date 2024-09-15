@@ -23,8 +23,8 @@ public class Main {
         rider1.setPreferredPaymentMethod(paypalPayment);
 
         // Riders Request Rides
-        Trip trip1 = rider1.requestRide("Location A", "Location B", carpool);
-        Trip trip2 = rider2.requestRide("Location X", "Location Y", bike);
+        Trip trip1 = rider1.requestRide("Mirpur", "BoardBazar", carpool);
+        Trip trip2 = rider2.requestRide("Banani", "Uttara", bike);
 
         // Drivers Accept Rides
         driver1.acceptRide(trip1);
