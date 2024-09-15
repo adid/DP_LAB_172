@@ -21,11 +21,6 @@ public class Trip {
         this.status = "Pending";
     }
 
-    public double getSurcharge(){
-        //Surcharge will depend on rideTime, tripTime and demand
-        return 1;
-    }
-
     public double calculateFare() {
         double baseFare = rideType.getBaseFare();
         double distanceRate = rideType.getDistanceRate();
@@ -58,5 +53,10 @@ public class Trip {
 
     public void setDriver(Driver driver) {
         this.driver = driver;
+    }
+
+    public double getSurcharge(){
+        //Surcharge will depend on rideTime, tripTime and demand
+        return 1;
     }
 }

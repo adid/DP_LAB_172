@@ -5,7 +5,7 @@ public class Rider {
     private String name;
     private String location;
     private double rating;
-    private String preferredPaymentMethod;
+    private PaymentMethod preferredPaymentMethod;
 
     private int trips;
 
@@ -14,20 +14,10 @@ public class Rider {
         this.name = name;
         this.rating = 0;
         this.location = getlocation();
-        this.preferredPaymentMethod = getPreferredPaymentMethod();
     }
 
     public Trip requestRide(String pickupLocation, String dropOffLocation ,RideType rideType) {
         return new Trip(this,pickupLocation,dropOffLocation,rideType);
-    }
-
-    public String getlocation() {
-        location = "Google map jeta bolbe";
-        return location;
-    }
-
-    public String getPreferredPaymentMethod(){
-        return preferredPaymentMethod;
     }
 
     public void rateDriver(Driver driver, double rating) {
@@ -41,8 +31,16 @@ public class Rider {
         driver.setRating(totalRating/totalTrips);
     }
 
-    public void makePayment(PaymentMethod paymentMethod, double amount) {
-        //code
+    public void setPreferredPaymentMethod(PaymentMethod preferredPaymentMethod) {
+        this.preferredPaymentMethod = preferredPaymentMethod;
+    }
+
+    public void makePayment(double amount) {
+        preferredPaymentMethod.processPayment(amount);
+    }
+    public String getlocation() {
+        location = "Google map jeta bolbe";
+        return location;
     }
 
     public int getTrips() {

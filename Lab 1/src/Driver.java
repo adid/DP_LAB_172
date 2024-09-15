@@ -44,7 +44,7 @@ public class Driver {
 
     public void acceptRide(Trip trip) {
         setAvailable(false);
-        trip.setDriver(this);
+        trip.assignDriver(this);
     }
 
     public void rateRider(Rider rider, double rating) {
