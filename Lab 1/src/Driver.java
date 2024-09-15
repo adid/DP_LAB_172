@@ -1,26 +1,36 @@
 public class Driver {
     private int id;
     private String name;
-    private String vehicleType;
+    private RideType vehicleType;
     private String location;
     private double rating;
     private int trips;
     private boolean availability;
 
-    public Driver(int id, String name, String vehicleType, String location, double rating, boolean availability) {
+    public Driver(int id, String name, RideType vehicleType) {
         this.id = id;
         this.name = name;
         this.vehicleType = vehicleType;
-        this.location = location;
-        this.rating = rating;
-        this.availability = availability;
+        this.location = getLocation();
+        this.rating = 0;
+        this.availability = false;
+    }
+
+    public String getLocation() {
+        location = "Google map jeta bolbe";
+        return location;
+    }
+
+    public void setAvailable(Boolean av)
+    {
+        this.availability= av;
     }
 
     public int getTrips() {
         return trips;
     }
 
-    public int setTrips(int trips){
+    public void setTrips(int trips){
         this.trips = trips;
     }
 
@@ -33,15 +43,23 @@ public class Driver {
     }
 
     public void acceptRide(Trip trip) {
-        //code
+        setAvailable(false);
+        trip.setDriver(this);
     }
 
     public void rateRider(Rider rider, double rating) {
-        //code
+        double getRating = rider.getRating();
+        int getTrips= rider.getTrips();
+
+        double totalRating = getTrips*getRating + rating;
+        int totalTrips = getTrips+1;
+
+        rider.setTrips(totalTrips);
+        rider.setRating(totalRating/totalTrips);
     }
 
     public void updateLocation(String newLocation) {
-        //code
+        this.location = newLocation;
     }
 
     public void startTrip(Trip trip) {

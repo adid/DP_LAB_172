@@ -1,16 +1,19 @@
 public class Trip {
     private int id;
+    private static int tripIdCounter = 1;
     private String pickupLocation;
     private String dropOffLocation;
     private RideType rideType;
     private String status;
     private double fare;
     private double distance;
-    private String rideTime;
+    private String ridingHour;
+    private Double tripTime;
     private Rider rider;
     private Driver driver;
 
     public Trip(Rider rider, String pickupLocation, String dropOffLocation, RideType rideType) {
+        this.id = tripIdCounter++;
         this.rider = rider;
         this.pickupLocation = pickupLocation;
         this.dropOffLocation = dropOffLocation;
@@ -18,13 +21,24 @@ public class Trip {
         this.status = "Pending";
     }
 
-    public void calculateFare() {
-
-        int surge;
-
-        this.fare = rideType.getBaseFare() + distance*50;
+    public double getSurcharge(){
+        //Surcharge will depend on rideTime, tripTime and demand
+        return 1;
     }
 
+    public double calculateFare() {
+        double baseFare = rideType.getBaseFare();
+        double distanceRate = rideType.getDistanceRate();
+        double surcharge = getSurcharge();
+        double timeRate= rideType.getTimeRate();
+
+        double fare = (baseFare * surcharge + distance * distanceRate + tripTime * timeRate);
+
+        if(rideType.getCategory().equals("Shared"))
+            return  fare/ rideType.getCapacity();
+
+        return fare;
+    }
     public void assignDriver(Driver driver) {
         this.driver = driver;
         this.status = "Accepted";
@@ -38,7 +52,11 @@ public class Trip {
 
     public void completeTrip() {
         this.status = "Completed";
-        calculateFare();
-        NotificationService.sendNotification("Your trip is complete.");
+        double fare = calculateFare();
+        NotificationService.sendNotification("Your trip is complete. Your fare is: " + fare + " BDT/-");
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 }
