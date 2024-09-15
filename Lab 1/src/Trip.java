@@ -27,7 +27,7 @@ public class Trip {
         double surcharge = getSurcharge();
         double timeRate= rideType.getTimeRate();
 
-        double fare = (baseFare * surcharge + distance * distanceRate + tripTime * timeRate);
+        double fare = baseFare * surcharge + distance * distanceRate + tripTime * timeRate;
 
         if(rideType.getCategory().equals("Shared"))
             return  fare/ rideType.getCapacity();
@@ -37,7 +37,7 @@ public class Trip {
     public void assignDriver(Driver driver) {
         this.driver = driver;
         this.status = "Accepted";
-        NotificationService.sendNotification("Driver assigned for your trip.");
+        NotificationService.sendNotification("Driver " + driver.getName() +  " has been assigned for your trip.");
     }
 
     public void startTrip() {
@@ -45,7 +45,9 @@ public class Trip {
         NotificationService.sendNotification("Your trip has started.");
     }
 
-    public void completeTrip() {
+    public void completeTrip(double distance, double time) {
+        this.distance = distance;
+        this.tripTime = time;
         this.status = "Completed";
         double fare = calculateFare();
         NotificationService.sendNotification("Your trip is complete. Your fare is: " + fare + " BDT/-");
@@ -58,5 +60,13 @@ public class Trip {
     public double getSurcharge(){
         //Surcharge will depend on rideTime, tripTime and demand
         return 1;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public Rider getRider() {
+        return rider;
     }
 }

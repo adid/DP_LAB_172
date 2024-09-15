@@ -59,4 +59,7 @@ public class Rider {
         this.rating = rating;
     }
 
+    public String getName() {
+        return name;
+    }
 }

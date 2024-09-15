@@ -63,7 +63,10 @@ public class Driver {
     }
 
     public void startTrip(Trip trip) {
-        //code
+        trip.startTrip();
     }
 
+    public String getName() {
+        return name;
+    }
 }
