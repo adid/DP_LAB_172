@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -6,9 +8,13 @@ public class Main {
         RideType luxury = new RideType("Luxury", "Default", 200.0, 15.0, 10.0, 4);
         RideType bike = new RideType("Bike", "Default", 30.0, 5.0, 3.0, 1);
 
+        // Create Payment Methods
+        PaymentMethod cardPayment = new CreditCard("1234-5678-9876-5432", "Mehedi", "12/25", 123);
+        PaymentMethod paypalPayment = new PayPal("alvee@madman.com");
+
         // Create Riders
-        Rider rider1 = new Rider(1, "Alvee");
-        Rider rider2 = new Rider(2, "Mehedi");
+        Rider rider1 = new Rider(1, "Alvee", paypalPayment);
+        Rider rider2 = new Rider(2, "Mehedi", cardPayment);
 
         // Create Drivers
         Driver driver1 = new Driver(1, "Nirjhar", carpool);
@@ -16,11 +22,7 @@ public class Main {
         Driver driver3 = new Driver(3, "Mahin", bike);
 
         // Assign Payment Methods for Riders
-        PaymentMethod cardPayment = new CreditCard("1234-5678-9876-5432", "Mehedi", "12/25", 123);
-        rider2.setPreferredPaymentMethod(cardPayment);
 
-        PaymentMethod paypalPayment = new PayPal("alvee@madman.com");
-        rider1.setPreferredPaymentMethod(paypalPayment);
 
         // Riders Request Rides
         Trip trip1 = rider1.requestRide("Mirpur", "BoardBazar", carpool);
@@ -65,10 +67,12 @@ public class Main {
         System.out.println("Trip History: ");
         admin.viewTripHistory();
 
-        System.out.println("Trip History for a specific Rider (Bob): ");
+        System.out.println("Trip History for a specific Rider: ");
         admin.viewTripHistory(rider1);
 
-        System.out.println("Trip History for a specific Driver (Alice): ");
+        System.out.println("Trip History for a specific Driver: ");
         admin.viewTripHistory(driver1);
+
+        rider2.changePaymentMethod();
     }
 }
