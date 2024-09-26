@@ -13,11 +13,11 @@ public class Admin {
     }
 
     public void manageDriver(Driver driver) {
-        // code
+        System.out.println("Managing Driver " + driver.getName());
     }
 
     public void manageRider(Rider rider) {
-        // code
+        System.out.println("Managing Rider " + rider.getName());
     }
 
     public void viewTripHistory() {
@@ -42,7 +42,7 @@ public class Admin {
         }
     }
 
-    public void handleDispute() {
-        // code
+    public void handleDispute(Rider rider, Driver driver) {
+        System.out.println("Handling Dispute between Driver " + driver.getName() + " and Rider " + rider.getName());
     }
 }

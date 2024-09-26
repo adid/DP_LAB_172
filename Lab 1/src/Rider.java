@@ -1,20 +1,16 @@
 import java.util.List;
 import java.util.Scanner;
 
-public class Rider {
-    private int id;
-    private String name;
-    private String location;
+public class Rider extends User{
+
     private double rating;
     private PaymentMethod preferredPaymentMethod;
 
     private int trips;
 
     public Rider(int id, String name, PaymentMethod preferredPaymentMethod) {
-        this.id = id;
-        this.name = name;
+        super(id,name);
         this.rating = 0;
-        this.location = getlocation();
         this.preferredPaymentMethod = preferredPaymentMethod;
     }
 
@@ -40,10 +36,7 @@ public class Rider {
     public void makePayment(double amount) {
         preferredPaymentMethod.processPayment(amount);
     }
-    public String getlocation() {
-        location = "Google map jeta bolbe";
-        return location;
-    }
+
 
     public int getTrips() {
         return trips;
@@ -61,12 +54,14 @@ public class Rider {
         this.rating = rating;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public void sendNotification(String message) {
+        System.out.println("Notification for Rider " + getName() + ": " + message);
     }
 
     void changePaymentMethod(){
         System.out.println("------------------------");
+        System.out.println("Your current payment method is " + preferredPaymentMethod.getClass().getName());
         System.out.println("Choose Preferred Payment Method: ");
         System.out.println("1. PayPal");
         System.out.println("2. Credit Card");

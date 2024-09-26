@@ -1,25 +1,17 @@
-public class Driver {
-    private int id;
-    private String name;
+public class Driver extends User{
     private RideType vehicleType;
-    private String location;
     private double rating;
     private int trips;
     private boolean availability;
 
     public Driver(int id, String name, RideType vehicleType) {
-        this.id = id;
-        this.name = name;
+        super(id , name);
         this.vehicleType = vehicleType;
-        this.location = getLocation();
         this.rating = 0;
         this.availability = false;
     }
 
-    public String getLocation() {
-        location = "Google map jeta bolbe";
-        return location;
-    }
+
 
     public void setAvailable(Boolean av)
     {
@@ -58,15 +50,12 @@ public class Driver {
         rider.setRating(totalRating/totalTrips);
     }
 
-    public void updateLocation(String newLocation) {
-        this.location = newLocation;
-    }
-
     public void startTrip(Trip trip) {
         trip.startTrip();
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public void sendNotification(String message) {
+        System.out.println("Notification for Driver " + getName() + ": " + message);
     }
 }

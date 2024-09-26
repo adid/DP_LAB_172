@@ -37,12 +37,14 @@ public class Trip {
     public void assignDriver(Driver driver) {
         this.driver = driver;
         this.status = "Accepted";
-        NotificationService.sendNotification("Driver " + driver.getName() +  " has been assigned for your trip.");
+        driver.sendNotification("Trip " + id + " assigned");
+        rider.sendNotification("Driver " + driver.getName() + " assigned for your trip " + id);
     }
 
     public void startTrip() {
         this.status = "In Progress";
-        NotificationService.sendNotification("Your trip has started from " + pickupLocation + " for " + dropOffLocation);
+        driver.sendNotification("Your trip has started from " + pickupLocation + " for " + dropOffLocation);
+        rider.sendNotification("Your trip has started from " + pickupLocation + " for " + dropOffLocation);
     }
 
     public void completeTrip(double distance, double time) {
@@ -50,7 +52,8 @@ public class Trip {
         this.tripTime = time;
         this.status = "Completed";
         double fare = calculateFare();
-        NotificationService.sendNotification("Your trip is complete. Your fare is: " + fare + " BDT/-");
+        driver.sendNotification("Your trip is complete. Fare  is: " + fare + " BDT/-");
+        rider.sendNotification("Your trip is complete. Your fare is: " + fare + " BDT/-");
     }
 
     public void setDriver(Driver driver) {
